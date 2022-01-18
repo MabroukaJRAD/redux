@@ -1,4 +1,5 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+
 // const [todoList,setTodoList]=useState([]); initialise an empty array
 //the todoList is the current state and the action.payload is the setTodoList
 const initialState = {
@@ -28,11 +29,20 @@ const todoSlice = createSlice({
                 }
             }
             )
-        }
+        },
+       // deleteTask: (state, action)=>{
+       //     return state.todoList.filter((item) => item.id !== action.payload.id);
+       // }
+       
+
+       deleteTask:(state, action )=> {
+            const index = state.todoList.findIndex((todo) => todo.id === action.payload);
+            state.todoList.splice(index, 1);
+          },
     
     }
 });
-export const { saveTodo, setCheck } = todoSlice.actions
+export const { saveTodo, setCheck , deleteTask } = todoSlice.actions
 export const selectTodolist= state =>state.todos.todoList
 
 export default todoSlice.reducer
